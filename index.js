@@ -7,12 +7,15 @@ const productmovements = require("./routes/productmovements");
 const app = express();
 
 mongoose
-  .connect("mongodb://localhost:27017/newplayground", {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    "mongodb+srv://Iqbal:Iqbal@cluster0.xhw7w.mongodb.net/iqubit?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => console.log("Connected to mongo db..."))
   .catch((err) => console.log("could not connect to mongo db...", err));
 
