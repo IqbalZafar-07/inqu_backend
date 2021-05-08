@@ -13,9 +13,6 @@ router.post("/", async (req, res) => {
 
   if (error) return res.status(404).send(error.details[0].message);
 
-  if (!from_location_id) {
-  }
-
   let productmovement = new Productmovement({
     from_location_id: req.body.from_location_id,
     to_location_id: req.body.to_location_id,
