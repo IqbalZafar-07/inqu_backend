@@ -1,6 +1,5 @@
 const _ = require("lodash");
 const { Productmovement, validate } = require("../model/productmovement");
-const { Location } = require("../model/location");
 const express = require("express");
 const router = express.Router();
 
