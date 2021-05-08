@@ -1,5 +1,6 @@
 const _ = require("lodash");
 const { Productmovement, validate } = require("../model/productmovement");
+const { Location } = require("../model/location");
 const express = require("express");
 const router = express.Router();
 
@@ -13,10 +14,14 @@ router.post("/", async (req, res) => {
 
   if (error) return res.status(404).send(error.details[0].message);
 
+  if (!from_location_id) {
+  }
+
   let productmovement = new Productmovement({
     from_location_id: req.body.from_location_id,
     to_location_id: req.body.to_location_id,
-    movement_id: req.body.movement_id,
+    product_id: req.body.product_id,
+    quantity: req.body.quantity,
     timestamp: Date.now(),
   });
 
@@ -24,26 +29,14 @@ router.post("/", async (req, res) => {
   res.send(productmovement);
 });
 
-router.put("/:id", async (req, res) => {
-  const { error } = validate(req.body);
-  if (error) return res.status(404).send(error.details[0].message);
-
-  const productmovement = await Productmovement.findByIdAndUpdate(
-    req.params.id,
-    {
-      from_location_id: req.body.from_location_id,
-      to_location_id: req.body.to_location_id,
-      movement_id: req.body.movement_id,
-      timestamp: Date.now(),
-    },
-    {
-      new: true,
-    }
+router.delete("/:id", async (req, res) => {
+  // console.log("inside delete", req.params);
+  const productmovement = await Productmovement.findByIdAndRemove(
+    req.params.id
   );
-  if (!productmovement)
-    return res.status(404).send("No productmovement are available for this ID");
 
-  res.send(productmovement);
+  if (!productmovement)
+    return res.status(404).send("No posts are available for this ID");
 });
 
 router.get("/:id", async (req, res) => {

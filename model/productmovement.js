@@ -1,3 +1,4 @@
+const { required } = require("joi");
 const Joi = require("joi");
 const mongoose = require("mongoose");
 
@@ -10,8 +11,13 @@ const productmovementSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  movement_id: {
+  product_id: {
     type: String,
+    required: true,
+  },
+  quantity: {
+    type: String,
+    required: true,
   },
   timestamp: {
     type: Date,
@@ -28,7 +34,8 @@ function validateProductmovement(productmovement) {
   const schema = Joi.object({
     to_location_id: Joi.string().required(),
     from_location_id: Joi.string().required(),
-    movement_id: Joi.string().required(),
+    product_id: Joi.string().required(),
+    quantity: Joi.string().required(),
   });
 
   return schema.validate(productmovement);
